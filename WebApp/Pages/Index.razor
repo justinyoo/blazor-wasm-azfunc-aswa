@@ -1,0 +1,51 @@
+﻿@page "/"
+@using AppModels
+@using System.Text.Json
+@inject HttpClient Http
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@if (posts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Excerpt</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in posts)
+            {
+                <tr>
+                    <td>@post.DatePublished.ToString()</td>
+                    <td>@post.Author.Name</td>
+                    <td><a href="@post.Url">@post.Title</a></td>
+                    <td>@post.Excerpt</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Post> posts;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var json = await Http.GetStringAsync("/api/posts").ConfigureAwait(false);
+        var collection = JsonSerializer.Deserialize<PostCollection>(json);
+        @* var collection = await Http.GetFromJsonAsync<PostCollection>("/api/posts").ConfigureAwait(false); *@
+        posts = collection.Posts;
+    }
+}

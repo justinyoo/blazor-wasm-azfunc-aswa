@@ -1,0 +1,12 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+
+    "SITE__NAME": "<sitename>.wordpress.com"
+  },
+  "Host": {
+    "CORS": "https://localhost:5001"
+  }
+}
