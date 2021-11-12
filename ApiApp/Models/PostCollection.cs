@@ -1,18 +1,16 @@
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 using Newtonsoft.Json;
 
-namespace AppModels
+namespace ApiApp.Models
 {
     public class PostCollection
     {
         public virtual int Found { get; set; }
 
-        public virtual List<Post> Posts { get; set; }
+        public virtual List<PostItem> Posts { get; set; }
 
         [JsonProperty("meta")]
-        [JsonPropertyName("meta")]
         public virtual Metadata Metadata { get; set; }
     }
 }

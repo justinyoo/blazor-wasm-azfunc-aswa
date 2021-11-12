@@ -1,25 +1,24 @@
-using System;
-using System.Net.Http;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Text;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
-namespace WebApp
-{
-    public class Program
+using WebApp;
+using WebApp.Proxies;
+
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
+
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped(sp => {
+    var client = sp.GetService<HttpClient>();
+    var api = new ReferenceApi(client);
+    if (!builder.HostEnvironment.IsDevelopment())
     {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("#app");
-
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
-            await builder.Build().RunAsync();
-        }
+        var baseUrl = $"{builder.HostEnvironment.BaseAddress.TrimEnd('/')}/api";
+        api.BaseUrl = baseUrl;
     }
-}
+
+    return api;
+});
+
+await builder.Build().RunAsync();

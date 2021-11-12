@@ -1,0 +1,119 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI Document on Azure Functions",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:7071/api"
+    }
+  ],
+  "paths": {
+    "/posts": {
+      "get": {
+        "tags": [
+          "posts"
+        ],
+        "operationId": "posts.get",
+        "responses": {
+          "200": {
+            "description": "The OK response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/postCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "author": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "links": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "next_page": {
+            "type": "string"
+          },
+          "wpcom": {
+            "type": "boolean"
+          }
+        }
+      },
+      "postCollection": {
+        "type": "object",
+        "properties": {
+          "found": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "posts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/postItem"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/metadata"
+          }
+        }
+      },
+      "postItem": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "author": {
+            "$ref": "#/components/schemas/author"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "title": {
+            "type": "string"
+          },
+          "URL": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
