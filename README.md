@@ -5,5 +5,5 @@ This provides a sample headless CMS app using Blazor WebAssembly hosted on Azure
 
 ## Prerequisites ##
 
-* [.NET 6](https://dotnet.microsoft.com/download?WT.mc_id=github-0000-juyoo)
-* Visual Studio 2022 or Visual Studio Code
+* [.NET 6](https://dotnet.microsoft.com/download?WT.mc_id=dotnet-49043-juyoo&ocid=AID3035128)
+* [Visual Studio 2022](https://visualstudio.microsoft.com/vs/?WT.mc_id=dotnet-49043-juyoo&ocid=AID3035128) or [Visual Studio Code](https://code.visualstudio.com/?WT.mc_id=dotnet-49043-juyoo&ocid=AID3035128)
