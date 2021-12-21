@@ -9,7 +9,8 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-builder.Services.AddScoped(sp => {
+builder.Services.AddScoped(sp =>
+{
     var client = sp.GetService<HttpClient>();
     var api = new ReferenceApi(client);
     if (!builder.HostEnvironment.IsDevelopment())
